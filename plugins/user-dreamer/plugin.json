@@ -1,7 +1,7 @@
 {
   "name": "user-dreamer",
   "description": "Turns recent user sessions into a durable personal engineering wiki",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "agents": "agents/",
   "skills": "skills/"
 }

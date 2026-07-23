@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "User-owned session dreaming plugins",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "plugins": [
     {
       "name": "user-dreamer",
       "description": "Turns a user's recent sessions into a durable personal engineering wiki",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "source": "plugins/user-dreamer"
     }
   ]
