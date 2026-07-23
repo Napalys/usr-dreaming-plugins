@@ -1,0 +1,7 @@
+{
+  "name": "user-dreamer",
+  "description": "Reviews recent user sessions and proposes reusable repository skills",
+  "version": "0.2.0",
+  "agents": "agents/",
+  "skills": "skills/"
+}
