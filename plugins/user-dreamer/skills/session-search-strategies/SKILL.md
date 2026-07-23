@@ -28,20 +28,29 @@ Prefer precise anchors before broad discovery. Extract exact session IDs,
 quotes, repository names, paths, branches, tools, timestamps, PR or issue
 numbers, and commit SHAs from the task before searching.
 
-Run one user-scoped 24-hour discovery query:
+Extract the requested time window from the current user message before
+searching. Use the same boundary for discovery and detailed inspection. Do not
+invent a default window; if the message does not specify one, stop and report
+that a time window is required.
+
+Translate the window to a safe DuckDB timestamp expression. Never interpolate
+raw user text into SQL. Parse relative durations into a positive numeric value
+and supported interval unit before constructing the expression.
+
+Run one user-scoped discovery query, replacing `<window-start-expression>` with
+the derived expression:
 
 ```sql
 SELECT id, summary, repository, branch, agent_name, updated_at
 FROM sessions
-WHERE updated_at > now() - INTERVAL '24 hours'
+WHERE updated_at >= <window-start-expression>
   AND COALESCE(agent_name, '') NOT ILIKE '%session-dreamer%'
 ORDER BY updated_at DESC
 LIMIT 100
 ```
 
-Do not widen beyond 24 hours unless the user explicitly requests it. If the
-query times out, retry once with fewer columns and `LIMIT 50`. Stop after a
-second timeout.
+Do not widen beyond the requested window. If the query times out, retry once
+with fewer columns and `LIMIT 50`. Stop after a second timeout.
 
 Group candidate sessions by topic and select at most ten session IDs for
 detailed inspection. Exclude the current run and prior user-dreaming runs when
@@ -74,7 +83,7 @@ SELECT session_id, timestamp, tool_complete_call_id,
 FROM events
 WHERE session_id = '<session-id>'
   AND type = 'tool.execution_complete'
-  AND timestamp > now() - INTERVAL '24 hours'
+  AND timestamp >= <window-start-expression>
   AND tool_complete_call_id IN ('<tool-call-id-1>', '<tool-call-id-2>')
 ORDER BY timestamp DESC
 LIMIT 20
@@ -89,7 +98,7 @@ SELECT session_id, turn_index,
        substr(COALESCE(assistant_response, ''), 1, 700) AS assistant_msg
 FROM turns
 WHERE session_id = '<session-id>'
-  AND timestamp > now() - INTERVAL '24 hours'
+  AND timestamp >= <window-start-expression>
 ORDER BY session_id, turn_index
 LIMIT 50
 ```
