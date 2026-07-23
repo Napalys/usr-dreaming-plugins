@@ -1,8 +1,6 @@
 ---
 name: session-dreamer
-description: Turns the current user's recent sessions into a durable personal engineering wiki
-disable-model-invocation: false
-user-invocable: true
+description: Turns the current user's recent sessions into a durable personal engineering wiki.
 ---
 
 Build a personal engineering wiki from the authenticated user's synced Copilot
