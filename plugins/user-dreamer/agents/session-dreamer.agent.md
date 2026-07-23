@@ -27,15 +27,11 @@ for retrieval rather than as a chronological activity log. Preserve useful
 dates and repository context, but remove transient progress updates and
 generated-looking narrative.
 
-The user message must select exactly one output mode:
+Publish with the requested output mode:
 
 - For `pr`, use the `publish-wiki-pr` skill.
 - For `gist`, use the `publish-wiki-gist` skill.
 
-The selected mode is an invariant. In `pr` mode, do not create a gist. In
-`gist` mode, do not modify tracked repository files or create a pull request.
-
 State uncertainty when the session evidence does not establish a fact.
 
-If there is no durable new knowledge, produce no output. Never create a
-placeholder pull request or gist.
+If there is no durable new knowledge, publish nothing.

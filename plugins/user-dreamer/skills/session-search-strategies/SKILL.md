@@ -10,12 +10,8 @@ Use `session_store_sql` with `source: "cloud"` and its default personal scope.
 
 ## Discovery
 
-Read the time window from the current user message and derive a DuckDB timestamp
-expression. Parse relative durations as a positive number and supported interval
-unit. Use the same boundary throughout the search.
-
-Extract useful anchors such as session IDs, repositories, paths, branches,
-tools, timestamps, PRs, issues, and commit SHAs.
+Use the time window requested in the current user message as the boundary
+throughout the search. Extract relevant anchors before querying.
 
 Run one user-scoped discovery query, replacing `<window-start-expression>` with
 the derived expression:
@@ -29,12 +25,9 @@ ORDER BY updated_at DESC
 LIMIT 100
 ```
 
-On timeout, retry once with fewer columns and `LIMIT 50`.
-
-Group candidate sessions by topic and select at most ten session IDs for
-detailed inspection. Exclude the current run and prior user-dreaming runs when
-they can be identified. Prefer sessions with substantive summaries, successful
-outcomes, repeated workflows, or matching repository and tool anchors.
+Group candidate sessions by topic and select relevant sessions for detailed
+inspection. Exclude the current run and prior user-dreaming runs when they can
+be identified.
 
 ## Detailed inspection
 
