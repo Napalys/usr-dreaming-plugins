@@ -17,7 +17,6 @@ description: Publishes durable knowledge from recent user sessions as a personal
    generated-looking prose.
 6. Prefer a small update to an existing page. Create a new page only when no
    existing topic fits.
-7. Change at most three topic pages in one run.
-8. Limit the pull request to the wiki update and summarize the knowledge added
+7. Limit the pull request to the wiki update and summarize the knowledge added
    without exposing session content.
-9. If there is no durable new knowledge, make no changes.
+8. If there is no durable new knowledge, make no changes.
