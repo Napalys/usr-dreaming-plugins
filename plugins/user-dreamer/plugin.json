@@ -1,6 +1,7 @@
 {
   "name": "user-dreamer",
-  "description": "Provides user-scoped session search and personal wiki publication skills",
-  "version": "0.5.1",
+  "description": "Provides a session-dreamer agent with user-scoped search and wiki publication skills",
+  "version": "0.6.0",
+  "agents": "agents/",
   "skills": "skills/"
 }
