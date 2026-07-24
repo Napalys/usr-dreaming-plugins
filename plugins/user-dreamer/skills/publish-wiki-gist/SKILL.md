@@ -15,12 +15,16 @@ description: Publishes durable knowledge from recent user sessions as a secret, 
 
    `WIKI_DIR="$(mktemp -d "${TMPDIR:-/tmp}/user-dreaming-wiki.XXXXXX")"`
 
-4. If `DREAM_GIST_ID` is set, replace `WIKI.md` in that gist:
+4. Create the API payload:
 
-   `(cd "$WIKI_DIR" && GH_TOKEN="$GIST_TOKEN" gh gist edit "$DREAM_GIST_ID" WIKI.md)`
+   `jq -n --rawfile content "$WIKI_DIR/WIKI.md" --arg description "Personal engineering wiki snapshot" '{description:$description,public:false,files:{"WIKI.md":{content:$content}}}' > "$WIKI_DIR/payload.json"`
+
+5. If `DREAM_GIST_ID` is set, replace `WIKI.md` in that gist:
+
+   `GH_TOKEN="$GIST_TOKEN" gh api --method PATCH "/gists/$DREAM_GIST_ID" --input "$WIKI_DIR/payload.json" --jq '.html_url'`
 
    Otherwise, create a secret gist:
 
-   `GH_TOKEN="$GIST_TOKEN" gh gist create "$WIKI_DIR/WIKI.md" --desc "Personal engineering wiki snapshot"`
+   `GH_TOKEN="$GIST_TOKEN" gh api --method POST /gists --input "$WIKI_DIR/payload.json" --jq '.html_url'`
 
-5. Delete the temporary directory and return the gist URL.
+6. Delete the temporary directory and return the gist URL.
