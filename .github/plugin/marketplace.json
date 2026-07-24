@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "User-owned session dreaming plugins",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "user-dreamer",
       "description": "Provides a session-dreamer agent with user-scoped search and wiki publication skills",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "source": "plugins/user-dreamer"
     }
   ]
